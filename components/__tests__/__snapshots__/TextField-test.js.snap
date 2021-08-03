@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<TextInput
+  allowFontScaling={true}
+  onChange={[Function]}
+  placeholderTextColor="#ffe002"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      Object {
+        "color": "#ffe002",
+      },
+      undefined,
+    ]
+  }
+  underlineColorAndroid="#ffe002"
+  value=""
+/>
+`;
