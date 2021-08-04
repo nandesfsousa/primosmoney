@@ -14,11 +14,11 @@ import { RootStackParamList, AuthStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-import AuthContext from '../contexts/auth';
-import { AuthProvider } from '../contexts/auth';
+import { AuthProvider, useAuth } from '../contexts/auth-context';
 
 const Navigation: React.FC = () => {
-  const { signed } = useContext(AuthContext);
+  const [signed] = React.useContext(useAuth);
+  console.log(signed);
   return (
     <NavigationContainer>
       <AuthProvider>

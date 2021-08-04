@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as SecureStore from 'expo-secure-store';
 
 import * as auth from '../services/auth';
@@ -15,7 +15,7 @@ type Store = {
     value: string;
 };
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = React.createContext<AuthContextData>({} as AuthContextData);
 
 
 export const AuthProvider: React.FC = ({ children }) => {
