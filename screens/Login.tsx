@@ -6,11 +6,10 @@ import { Background } from '../components/Background';
 import { TextField } from '../components/TextField';
 import { CustomButton } from '../components/CustomButton';
 
-import AuthContext from '../contexts/auth'
+import AuthContext from '../contexts/authenticate'
 
 const LoginScreen:React.FC = ()=> {
     const { signed, signIn, user } = useContext(AuthContext);
-
     async function handleSignIn() {
         const response = await signIn({cpf:123456789, password:'123456789'});
     };

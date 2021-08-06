@@ -14,11 +14,12 @@ import { RootStackParamList, AuthStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-import { AuthProvider, useAuth } from '../contexts/auth-context';
-
-const Navigation: React.FC = () => {
-  const [signed] = React.useContext(useAuth);
-  console.log(signed);
+import { AuthProvider } from '../contexts/authenticate';
+import AuthContext from '../contexts/authenticate'
+/**
+ * 
+ * export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const { signed, signIn, user } = useContext(AuthContext);
   return (
     <NavigationContainer>
       <AuthProvider>
@@ -28,6 +29,21 @@ const Navigation: React.FC = () => {
   );
 };
 
+ */
+const Navigation: React.FC = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
+  return (
+    <NavigationContainer>
+      <AuthProvider>
+        <AuthVerify/>
+      </AuthProvider>
+    </NavigationContainer>
+  );
+}
+
+const AuthVerify: React.FC = () => {
+  const { signed } = useContext(AuthContext);
+  return signed ? <RootNavigator /> : <AuthNavigator />
+}
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
@@ -52,4 +68,4 @@ function AuthNavigator() {
   );
 }
 
-export default Navigation;
+export default Navigation

@@ -22,16 +22,13 @@ function authReducer(state: State, action: Action) {
         };
     };
 };
-
 const initialState = {
-    state:{
-        signed: false,
-        user:{},
-        signIn: ()=>{}
-    }
-};
-function AuthProvider(children: AuthProviderProps) {
-    const [state, dispatch] = React.useReducer(authReducer, initialState);
+    signed: false,
+    user: {},
+    signIn: ()=>{}
+}
+function AuthProvider({children}: AuthProviderProps) {
+    const [state, dispatch] = React.useReducer(authReducer, {initialState})
     const value = { state, dispatch };
     const [user, setUser] = React.useState({});
     async function save(store: Store) {
@@ -40,10 +37,10 @@ function AuthProvider(children: AuthProviderProps) {
     async function getValueFor(key: string) {
         let result = await SecureStore.getItemAsync(key);
         if (result) {
-            console.log("🔐 Here's your value 🔐 \n" + result);
+            //console.log("🔐 Here's your value 🔐 \n" + result);
             return result;
         } else {
-            console.log('No values stored under that key.');
+            //console.log('No values stored under that key.');
             return ('No values stored under that key.')
         };
     };
