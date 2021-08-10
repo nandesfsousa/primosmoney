@@ -9,7 +9,7 @@ import { CustomButton } from '../components/CustomButton';
 import AuthContext from '../contexts/authenticate'
 
 const LoginScreen:React.FC = ({navigation})=> {
-    const { signed, signIn, user } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     async function handleSignIn() {
         const response = await signIn({cpf:123456789, password:'123456789'});
     };

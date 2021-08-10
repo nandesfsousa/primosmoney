@@ -1,31 +1,82 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Text, View, TouchableOpacity, Image } from '../components/Themed';
+import { Text, View, TouchableOpacity, Image, ScrollView, ActivityIndicator } from '../components/Themed';
 import { Background } from '../components/Background';
 import { TextField } from '../components/TextField';
 import { CustomButton } from '../components/CustomButton';
 
 import AuthContext from '../contexts/authenticate'
 
+import * as ImagePicker from 'expo-image-picker';
+
 const RegisterScreen: React.FC = ({ navigation }) => {
-    const { signed, signIn, user } = useContext(AuthContext);
-    const [screen, setScreen] = useState(0);
+    const { register } = useContext(AuthContext);
+    const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false);
+    async function handleRegister() {
+        const response = await register({ cpf: 123456789, password: '123456789' });
+    };
+    async function pickImage() {
+        setLoading(true);
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            base64: true
+        });
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        };
+
+        setLoading(false);
+    };
     return (
         <Background>
             <View style={styles.logo}>
                 <Image source={require('../assets/images/adaptive-icon.png')} />
             </View>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text style={styles.title}>Dados Pessoais</Text>
                 <View style={styles.separator} />
                 <TextField placeholder="Nome Completo" placeholderTextColor='#ffe002' keyboardType="ascii-capable" />
                 <View style={styles.separator} />
-                <TextField secureTextEntry placeholder="Cidade" keyboardType="ascii-capable" placeholderTextColor='#ffe002' />
+                <TextField placeholder="Cidade" keyboardType="ascii-capable" placeholderTextColor='#ffe002' />
                 <View style={styles.separator} />
-                <CustomButton title="Proxímo"onPress={()=>{}} color='#ffe002' />
+                <TextField placeholder="CPF" keyboardType="number-pad" placeholderTextColor='#ffe002' />
                 <View style={styles.separator} />
-            </View>
+                <TextField placeholder="Telefone" keyboardType="phone-pad" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <TextField placeholder="Whatsapp" keyboardType="phone-pad" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <Text style={styles.title}>Dados Empresariais</Text>
+                <View style={styles.separator} />
+                <TextField placeholder="Nome da Empresa" placeholderTextColor='#ffe002' keyboardType="ascii-capable" />
+                <View style={styles.separator} />
+                <TextField placeholder="CNPJ" keyboardType="number-pad" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <TextField placeholder="Telefone da empresa" keyboardType="phone-pad" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <TextField placeholder="Whatsapp da empresa" keyboardType="phone-pad" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <Text style={styles.title}>Segurança</Text>
+                <View style={styles.separator} />
+                <TextField placeholder="Email" placeholderTextColor='#ffe002' keyboardType="email-address" />
+                <View style={styles.separator} />
+                <TextField secureTextEntry placeholder="Senha" keyboardType="ascii-capable" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <TextField secureTextEntry placeholder="Confimar Senha" keyboardType="ascii-capable" placeholderTextColor='#ffe002' />
+                <View style={styles.separator} />
+                <Text style={styles.title}>Perfil</Text>
+                {loading ? <ActivityIndicator size="small" color='#ffe002' /> :
+                    <>
+                        {image ? <CustomButton title="Alterar Foto" onPress={pickImage} color='#ffe002' /> : <CustomButton title="Enviar Foto" onPress={pickImage} color='#ffe002' />}
+                    </>
+                }
+                <View style={styles.separator} />
+                <CustomButton title="Cadastrar" onPress={handleRegister} color='#ffe002' />
+                <View style={styles.separator} />
+            </ScrollView>
             <View style={styles.separator} />
             <View style={styles.create}>
                 <TouchableOpacity onPress={() => navigation.goBack("Login")}>

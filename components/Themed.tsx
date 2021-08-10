@@ -4,13 +4,15 @@
  */
 
 import * as React from 'react';
-import { 
+import {
+  ActivityIndicator as DefaultActivityIndicator,
   Text as DefaultText, 
   View as DefaultView, 
   TextInput as DefaultInput, 
   Image as DefaultImage,
   Button as DefaultButton,
-  TouchableOpacity as DefaultTouchableOpacity
+  TouchableOpacity as DefaultTouchableOpacity,
+  ScrollView as DefaultScrollView,
 } from 'react-native';
 
 import Colors from '../constants/Colors';
@@ -36,6 +38,8 @@ type ThemeProps = {
   darkColor?: string;
 };
 
+export type ActivityIndicatorProps = ThemeProps & DefaultActivityIndicator['props'];
+export type ScrollViewProps = ThemeProps & DefaultScrollView['props'];
 export type InputProps = ThemeProps & DefaultInput['props'];
 export type ImageProps = ThemeProps & DefaultImage['props'];
 export type TextProps = ThemeProps & DefaultText['props'];
@@ -73,6 +77,13 @@ export function View(props: ViewProps) {
 
   return <DefaultView style={[style]} {...otherProps} />;
 };
+
+export function ScrollView(props: ScrollViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <DefaultScrollView style={[style]} {...otherProps} />;
+};
 export function Button(props:ButtonProps){
   const { lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
@@ -83,4 +94,9 @@ export function TouchableOpacity(props: TouchableOpacityProps){
   const { lightColor, darkColor, ...otherProps } = props;
 
   return <DefaultTouchableOpacity {...otherProps} />;
+};
+export function ActivityIndicator(props: ActivityIndicatorProps){
+  const { lightColor, darkColor, ...otherProps } = props;
+
+  return <DefaultActivityIndicator {...otherProps} />;
 }

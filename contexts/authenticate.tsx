@@ -1,12 +1,13 @@
 import React, { Children } from "react";
 import * as auth from '../services/auth';
 import * as SecureStore from 'expo-secure-store';
-import { UserAuthData } from '../services/auth'
+import { UserAuthData, RegisterAuthData } from '../services/auth'
 
 interface AuthContextData {
     signed: boolean;
     user: object | null;
     signIn(user: UserAuthData): Promise<void>;
+    register(user: RegisterAuthData): Promise<void>;
 };
 
 type Store = { key: string, value: string };
@@ -73,8 +74,19 @@ export const AuthProvider: React.FC = ({ children }) => {
             setSigned(true);
         }
     }
+
+    async function register(registerAuthData: RegisterAuthData) {
+        const response = await auth.Register(registerAuthData);
+        if (response.token) {
+            setUser(response.user);
+            save({ key: 'user_id', value: response.user.id });
+            save({ key: 'user_name', value: response.user.name });
+            save({ key: 'user_token', value: response.token });
+            setSigned(true);
+        }
+    }
     return (
-        <AuthContext.Provider value={{ signed, user, signIn }}>
+        <AuthContext.Provider value={{ signed, user, signIn, register }}>
             {children}
         </AuthContext.Provider>
     )
