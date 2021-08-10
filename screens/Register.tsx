@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Text, View, TouchableOpacity, Image } from '../components/Themed';
@@ -8,39 +8,29 @@ import { CustomButton } from '../components/CustomButton';
 
 import AuthContext from '../contexts/authenticate'
 
-const LoginScreen:React.FC = ({navigation})=> {
+const RegisterScreen: React.FC = ({ navigation }) => {
     const { signed, signIn, user } = useContext(AuthContext);
-    async function handleSignIn() {
-        const response = await signIn({cpf:123456789, password:'123456789'});
-    };
-
+    const [screen, setScreen] = useState(0);
     return (
         <Background>
             <View style={styles.logo}>
                 <Image source={require('../assets/images/adaptive-icon.png')} />
             </View>
             <View style={styles.container}>
-                <Text style={styles.title}>ENTRAR</Text>
+                <Text style={styles.title}>Dados Pessoais</Text>
                 <View style={styles.separator} />
-                <TextField placeholder="CPF" placeholderTextColor='#ffe002' keyboardType="decimal-pad" />
+                <TextField placeholder="Nome Completo" placeholderTextColor='#ffe002' keyboardType="ascii-capable" />
                 <View style={styles.separator} />
-                <TextField secureTextEntry placeholder="Senha" textContentType="password" placeholderTextColor='#ffe002' />
+                <TextField secureTextEntry placeholder="Cidade" keyboardType="ascii-capable" placeholderTextColor='#ffe002' />
                 <View style={styles.separator} />
-                <CustomButton title="Entrar" onPress={handleSignIn} color='#ffe002' />
+                <CustomButton title="Proxímo"onPress={()=>{}} color='#ffe002' />
                 <View style={styles.separator} />
-            </View>
-            <View style={styles.forgout_password}>
-                <TouchableOpacity>
-                    <Text>
-                        Esqueceu sua senha?
-                    </Text>
-                </TouchableOpacity>
             </View>
             <View style={styles.separator} />
             <View style={styles.create}>
-                <TouchableOpacity onPress={()=>navigation.push("Register")}>
+                <TouchableOpacity onPress={() => navigation.goBack("Login")}>
                     <Text>
-                        Criar conta!
+                        Já tem uma conta?
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -91,4 +81,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+export default RegisterScreen;

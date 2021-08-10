@@ -10,6 +10,7 @@ import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import LoginScreen from '../screens/Login';
+import RegisterScreen from '../screens/Register';
 import { RootStackParamList, AuthStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -63,7 +64,7 @@ function AuthNavigator() {
   return (
     <Auth.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
       <Auth.Screen name="Login" component={LoginScreen} />
-      <Auth.Screen name="Register" component={NotFoundScreen} />
+      <Auth.Screen name="Register" component={RegisterScreen} />
     </Auth.Navigator>
   );
 }
