@@ -13,24 +13,43 @@ import * as ImagePicker from 'expo-image-picker';
 const RegisterScreen: React.FC = ({ navigation }) => {
     const { register } = useContext(AuthContext);
     const [image, setImage] = useState(null);
-    const [cpf] = useState("");
-    const [name] = useState("");
-    const [city] = useState("");
-    const [zap] = useState("");
-    const [phone] = useState("");
-    const [password] = useState("");
-    const [address_line1] = useState("");
-    const [address_line2] = useState("");
-    const [cnpj] = useState("");
-    const [business_name] = useState("");
-    const [business_zap] = useState("");
-    const [business_phone] = useState("");
-    const [business_address_line1] = useState("");
-    const [business_address_line2] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [name, setName] = useState("");
+    const [city, setCity] = useState("");
+    const [zap, setZap] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [addressLine1, setAddressLine1] = useState("");
+    const [addressLine2, setAddressLine2] = useState("");
+    const [cnpj, setCnpj] = useState("");
+    const [businessName, setBusinessName] = useState("");
+    const [businessZap, setBusinessZap] = useState("");
+    const [businessPhone, setBusinessPhone] = useState("");
+    const [businessAddressLine1, setBusinessAddressLine1] = useState("");
+    const [businessAddressLine2, setBusinessAddressLine2] = useState("");
 
     const [loading, setLoading] = useState(false);
+
     async function handleRegister() {
-        const response = await register({ cpf: 123456789, password: '123456789' });
+        const response = await register({
+            cpf: cpf,
+            password: password,
+            name: name,
+            city: city,
+            zap: zap,
+            phone: phone,
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            cnpj: cnpj,
+            business_name: businessName,
+            business_zap: businessZap,
+            business_phone: businessPhone,
+            business_address_line1: businessAddressLine1,
+            business_address_line2: businessAddressLine2
+        });
+        if (response.token) {
+
+        };
     };
     async function pickImage() {
         setLoading(true);

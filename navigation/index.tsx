@@ -11,6 +11,7 @@ import { ColorSchemeName } from 'react-native';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
+import ForgoutPasswordScreen from '../screens/ForgoutPasswordScreen';
 import { RootStackParamList, AuthStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -65,6 +66,7 @@ function AuthNavigator() {
     <Auth.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="Register" component={RegisterScreen} />
+      <Auth.Screen name="ForgoutPassword" component={ForgoutPasswordScreen}/>
     </Auth.Navigator>
   );
 }

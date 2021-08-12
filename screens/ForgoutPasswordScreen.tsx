@@ -8,13 +8,21 @@ import { CustomButton } from '../components/CustomButton';
 
 import AuthContext from '../contexts/authenticate'
 
-const LoginScreen: React.FC = ({ navigation }) => {
+const ForgoutPasswordScreen: React.FC = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
-    const [cpf, setCpf] = useState(0);
-    const [password, setPassword] = useState("");
-    async function handleSignIn() {
-        if (cpf > 0 && password.length > 5) {
-            const response = await signIn({ cpf: cpf, password: password });
+    const [email, setEmail] = useState('');
+    const [code, setCode] = useState(0);
+    const [sentCode, setSentCode] = useState(false);
+    async function handleSentCode() {
+      if(true) {
+          /* Fazer requiçisão aqui */
+          setSentCode(true);
+      }  
+    };
+    async function handleVerify() {
+        if (true) {
+            // const response = await signIn({ cpf: cpf, code: code });
+            console.log(sentCode)
         };
     };
 
@@ -24,27 +32,22 @@ const LoginScreen: React.FC = ({ navigation }) => {
                 <Image source={require('../assets/images/adaptive-icon.png')} />
             </View>
             <View style={styles.container}>
-                <Text style={styles.title}>ENTRAR</Text>
+                <Text style={styles.title}>Recuperar senha</Text>
                 <View style={styles.separator} />
-                <TextField placeholder="CPF" placeholderTextColor='#ffe002' keyboardType="decimal-pad" />
+                <TextField placeholder="E-mail" placeholderTextColor='#ffe002' keyboardType="email-address" />
                 <View style={styles.separator} />
-                <TextField secureTextEntry placeholder="Senha" textContentType="password" placeholderTextColor='#ffe002' />
+                <TextField placeholder="Código" keyboardType="decimal-pad" placeholderTextColor='#ffe002' />
                 <View style={styles.separator} />
-                <CustomButton title="Entrar" onPress={handleSignIn} color='#ffe002' />
+                    {sentCode ? <CustomButton title="Verificar" onPress={handleVerify} color='#ffe002' /> : <CustomButton title="Enviar Código" onPress={handleSentCode} color='#ffe002' />}
+    
                 <View style={styles.separator} />
             </View>
-            <View style={styles.forgout_password}>
-                <TouchableOpacity onPress={() => navigation.push("ForgoutPassword")}>
-                    <Text>
-                        Esqueceu sua senha?
-                    </Text>
-                </TouchableOpacity>
-            </View>
+            
             <View style={styles.separator} />
             <View style={styles.create}>
-                <TouchableOpacity onPress={() => navigation.push("Register")}>
+                <TouchableOpacity onPress={() => navigation.goBack("Login")}>
                     <Text>
-                        Criar conta!
+                        Voltar
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -95,4 +98,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+export default ForgoutPasswordScreen;

@@ -13,7 +13,8 @@ export default {
       Auth: {
         screens:{
           LoginScreen: 'login',
-          RegisterScreen: 'register'
+          RegisterScreen: 'register',
+          ForgoutPasswordScreen: 'forgoutpassword' 
         }
       },
       Root: {
