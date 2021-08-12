@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Text, View, TouchableOpacity, Image } from '../components/Themed';
@@ -8,10 +8,14 @@ import { CustomButton } from '../components/CustomButton';
 
 import AuthContext from '../contexts/authenticate'
 
-const LoginScreen:React.FC = ({navigation})=> {
+const LoginScreen: React.FC = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
+    const [cpf, setCpf] = useState(0);
+    const [password, setPassword] = useState("");
     async function handleSignIn() {
-        const response = await signIn({cpf:123456789, password:'123456789'});
+        if (cpf > 0 && password.length > 5) {
+            const response = await signIn({ cpf: cpf, password: password });
+        };
     };
 
     return (
@@ -38,7 +42,7 @@ const LoginScreen:React.FC = ({navigation})=> {
             </View>
             <View style={styles.separator} />
             <View style={styles.create}>
-                <TouchableOpacity onPress={()=>navigation.push("Register")}>
+                <TouchableOpacity onPress={() => navigation.push("Register")}>
                     <Text>
                         Criar conta!
                     </Text>

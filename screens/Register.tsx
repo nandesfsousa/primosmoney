@@ -13,6 +13,21 @@ import * as ImagePicker from 'expo-image-picker';
 const RegisterScreen: React.FC = ({ navigation }) => {
     const { register } = useContext(AuthContext);
     const [image, setImage] = useState(null);
+    const [cpf] = useState("");
+    const [name] = useState("");
+    const [city] = useState("");
+    const [zap] = useState("");
+    const [phone] = useState("");
+    const [password] = useState("");
+    const [address_line1] = useState("");
+    const [address_line2] = useState("");
+    const [cnpj] = useState("");
+    const [business_name] = useState("");
+    const [business_zap] = useState("");
+    const [business_phone] = useState("");
+    const [business_address_line1] = useState("");
+    const [business_address_line2] = useState("");
+
     const [loading, setLoading] = useState(false);
     async function handleRegister() {
         const response = await register({ cpf: 123456789, password: '123456789' });
