@@ -73,6 +73,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             save({ key: 'user_token', value: response.token });
             setSigned(true);
         }
+        return response;
     }
 
     async function register(registerAuthData: RegisterAuthData) {
@@ -84,6 +85,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             save({ key: 'user_token', value: response.token });
             setSigned(true);
         }
+        return response;
     }
     return (
         <AuthContext.Provider value={{ signed, user, signIn, register }}>

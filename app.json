@@ -19,13 +19,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "app.primosmoney.com"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#161415"
-      }
+      },
+      "package": "app.primosmoney.com"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

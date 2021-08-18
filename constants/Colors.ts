@@ -5,6 +5,7 @@ export default {
   light: {
     text: '#fff',
     primary: '#ffe002',
+    alert: '#D32F2F',
     background: '#161415',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
@@ -13,6 +14,7 @@ export default {
   dark: {
     text: '#fff',
     primary: '#ffe002',
+    alert: '#D32F2F',
     background: '#161415',
     tint: tintColorDark,
     tabIconDefault: '#ccc',

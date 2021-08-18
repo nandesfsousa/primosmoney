@@ -1,34 +1,58 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Text, View, TouchableOpacity, Image } from '../components/Themed';
+import { Erro, Text, View, TouchableOpacity, Image } from '../components/Themed';
 import { Background } from '../components/Background';
 import { TextField } from '../components/TextField';
 import { CustomButton } from '../components/CustomButton';
-
+import { MaskService } from 'react-native-masked-text'
 import AuthContext from '../contexts/authenticate'
 
+
+type InputValue = {
+    value: string
+};
 const LoginScreen: React.FC = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
-    const [cpf, setCpf] = useState(0);
-    const [password, setPassword] = useState("");
+    const [cpf, setCpf] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [erro, setErro] = useState('');
+    function cpfMask(value: InputValue) {
+        return (MaskService.toMask('cpf', value.value));
+    };
     async function handleSignIn() {
-        if (cpf > 0 && password.length > 5) {
+        setErro('');
+        if (cpf.length > 0 && password.length > 5) {
             const response = await signIn({ cpf: cpf, password: password });
+            if(response.response.status === 404){
+                setErro('Usuário não cadastrado');
+            };
+            if(response.response.status === 401){
+                setErro('Senha inválida');
+            };
+        };
+        if(cpf.length < 11){
+            setErro('CPF inválido');
+        };
+        if(password.length < 5){
+            setErro('Senha inválida');
         };
     };
-
     return (
         <Background>
             <View style={styles.logo}>
                 <Image source={require('../assets/images/adaptive-icon.png')} />
             </View>
+            <View style={styles.container_erro}>
+                <Erro style={styles.erro}>{erro}</Erro>
+            </View>
             <View style={styles.container}>
                 <Text style={styles.title}>ENTRAR</Text>
                 <View style={styles.separator} />
-                <TextField placeholder="CPF" placeholderTextColor='#ffe002' keyboardType="decimal-pad" />
+                <TextField placeholder="CPF" keyboardType="number-pad" placeholderTextColor='#ffe002' onChangeText={(value) => setCpf(cpfMask({ value: value }))} value={cpf}/>
                 <View style={styles.separator} />
-                <TextField secureTextEntry placeholder="Senha" textContentType="password" placeholderTextColor='#ffe002' />
+                <TextField secureTextEntry placeholder="Senha" textContentType="password" placeholderTextColor='#ffe002' onChangeText={(value)=>setPassword(value)} value={password}/>
                 <View style={styles.separator} />
                 <CustomButton title="Entrar" onPress={handleSignIn} color='#ffe002' />
                 <View style={styles.separator} />
@@ -86,6 +110,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 24,
         paddingTop: 16
+    },
+    container_erro: {
+        width: '100%',
+        alignItems: 'center'
+    },
+    erro: {
+        fontSize: 12,
+        fontWeight: 'bold'
     },
     logo: {
         width: '100%',
