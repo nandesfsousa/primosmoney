@@ -5,6 +5,7 @@
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
+  ForgoutPassword: undefined;
 };
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
 export type BottomTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
+  HomeClient: undefined;
 };
 
 export type TabOneParamList = {
@@ -23,4 +25,8 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+export type HomeClientParamList = {
+  HomeClientScreen: undefined;
 };

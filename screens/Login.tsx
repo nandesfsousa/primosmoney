@@ -23,7 +23,7 @@ const LoginScreen: React.FC = ({ navigation }) => {
     };
     async function handleSignIn() {
         setErro('');
-        if (cpf.length > 0 && password.length > 5) {
+        if (cpf.length > 0 && password.length > 3) {
             const response = await signIn({ cpf: cpf, password: password });
             if(response.response.status === 404){
                 setErro('Usuário não cadastrado');
@@ -35,7 +35,7 @@ const LoginScreen: React.FC = ({ navigation }) => {
         if(cpf.length < 11){
             setErro('CPF inválido');
         };
-        if(password.length < 5){
+        if(password.length < 3){
             setErro('Senha inválida');
         };
     };

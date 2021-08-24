@@ -13,7 +13,7 @@ import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 import ForgoutPasswordScreen from '../screens/ForgoutPasswordScreen';
 import { RootStackParamList, AuthStackParamList } from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
+import BottomTabNavigator, { BottomTabClientNavigator } from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 import { AuthProvider } from '../contexts/authenticate';
@@ -36,7 +36,7 @@ const Navigation: React.FC = ({ colorScheme }: { colorScheme: ColorSchemeName })
   return (
     <NavigationContainer>
       <AuthProvider>
-        <AuthVerify/>
+        <AuthVerify />
       </AuthProvider>
     </NavigationContainer>
   );
@@ -51,6 +51,7 @@ const AuthVerify: React.FC = () => {
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const { user } = useContext(AuthContext);
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} />
@@ -66,7 +67,7 @@ function AuthNavigator() {
     <Auth.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="Register" component={RegisterScreen} />
-      <Auth.Screen name="ForgoutPassword" component={ForgoutPasswordScreen}/>
+      <Auth.Screen name="ForgoutPassword" component={ForgoutPasswordScreen} />
     </Auth.Navigator>
   );
 }
