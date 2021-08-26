@@ -115,7 +115,7 @@ const RegisterScreen: React.FC = ({ navigation }) => {
     return (
         <Background>
             <View style={styles.logo}>
-                <Image source={require('../assets/images/adaptive-icon.png')} />
+                <Image source={require('../assets/images/logo.png')} />
             </View>
             <View style={styles.container_erro}>
                 <Erro style={styles.erro}>{erro}</Erro>

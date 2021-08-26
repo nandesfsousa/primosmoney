@@ -4,16 +4,23 @@ import { StyleSheet } from 'react-native';
 import { Erro, Text, View, TouchableOpacity, Image, ScrollView, ActivityIndicator } from '../components/Themed';
 import { Background } from '../components/Background';
 
-import { MaskService } from 'react-native-masked-text'
+import { MaskService } from 'react-native-masked-text';
+
+import AuthContext from '../contexts/authenticate';
+import { getUser } from '../services/api';
 
 type InputValue = {
     value: string
 }
 const HomeClientScreen: React.FC = ({ navigation }) => {
+    const { user } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState('');
 
+    async function handleGetUser() {
+        const response = await getUser(user, user.user.id);
+    };
     function cnpjMask(value: InputValue) {
         return (MaskService.toMask('cnpj', value.value));
     };
@@ -30,23 +37,23 @@ const HomeClientScreen: React.FC = ({ navigation }) => {
     function getUnMaskedText(value: InputValue) {
         return value.value.replace(/[^\d]+/g, '');
     };
-    
+
     return (
         <Background>
             <View style={styles.logo}>
-                <Image source={require('../assets/images/adaptive-icon.png')} />
+                <Image source={require('../assets/images/logo.png')} />
             </View>
             <View style={styles.container_erro}>
                 <Erro style={styles.erro}>{erro}</Erro>
             </View>
             <ScrollView style={styles.container}>
-                
+
             </ScrollView>
             <View style={styles.separator} />
             <View style={styles.create}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleGetUser}>
                     <Text>
-                        Teste
+                        {user.user ? user.user.name : <ActivityIndicator size="small" color='#ffe002' /> }
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -57,7 +64,7 @@ const HomeClientScreen: React.FC = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 5,
-        padding: 20,
+        padding: 3,
         width: '100%',
         elevation: 5,
         shadowColor: '#161415',

@@ -87,8 +87,21 @@ export const AuthProvider: React.FC = ({ children }) => {
         }
         return response;
     }
+
+    async function getUser() {
+        const storagedUser = await getValueFor('user_id');
+        const storagedName = await getValueFor('user_name');
+        const storagedToken = await getValueFor('user_token');
+        return ({
+            token: storagedToken,
+            user: {
+                name: storagedName,
+                id: storagedUser
+            }
+        })
+    }
     return (
-        <AuthContext.Provider value={{ signed, user, signIn, register }}>
+        <AuthContext.Provider value={{ signed, user, getUser, signIn, register }}>
             {children}
         </AuthContext.Provider>
     )
